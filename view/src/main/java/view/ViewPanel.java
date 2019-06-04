@@ -6,6 +6,9 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import contract.IMap;
+import contract.IModel;
+
 /**
  * The Class ViewPanel.
  *
@@ -26,7 +29,7 @@ class ViewPanel extends JPanel implements Observer {
 	 */
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
-		viewFrame.getModel().getObservable().addObserver(this);
+		//viewFrame.getModel().getObservable().addObserver(this);
 	}
 
 	/**
@@ -64,7 +67,19 @@ class ViewPanel extends JPanel implements Observer {
 	 */
 	@Override
 	protected void paintComponent(final Graphics graphics) {
+		IModel model = this.getViewFrame().getModel();
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
+		//graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
+		for ( int x  = 0 ; x < IMap.heightMap ; x++ ) {
+			for ( int y = 0 ; y < IMap.widthMap ; y ++) {
+				if ( model.getMap().getOnTheMapXY(x, y) != null ) {
+					System.out.print(model.getMap().getOnTheMapXY(x, y).getSprite().getConsoleImage()+ " ");
+				} else {
+					System.out.print("  ");
+				}
+				
+			}
+			System.out.println("");
+		}
 	}
 }
