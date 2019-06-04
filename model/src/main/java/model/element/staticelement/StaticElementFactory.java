@@ -5,39 +5,40 @@ import contract.IMap;
 import contract.IPosition;
 import contract.IStaticElementFactory;
 import model.element.Position;
+import model.element.dpdecorator.IsUnPenetrable;
 
 public class StaticElementFactory implements IStaticElementFactory {
 
 	public IElement createBorderUp(IPosition position) {
-		return new BorderUp(position);
+		return new IsUnPenetrable(new BorderUp(position));
 	}
 	
 	public IElement createBorderDown(IPosition position) {
-		return new BorderDown(position);
+		return new IsUnPenetrable(new BorderDown(position));
 	}
 	
 	public IElement createBorderLeft(IPosition position) {
-		return new BorderLeft(position);
+		return new IsUnPenetrable(new BorderLeft(position));
 	}
 	
 	public IElement createBorderRight(IPosition position) {
-		return new BorderRight(position);
+		return new IsUnPenetrable(new BorderRight(position));
 	}
 	
 	public IElement createCornerLeftUp(IPosition position) {
-		return new CornerLeftUp(position);
+		return new IsUnPenetrable(new CornerLeftUp(position));
 	}
 	
 	public IElement createCornerLeftDown(IPosition position) {
-		return new CornerLeftDown(position);
+		return new IsUnPenetrable(new CornerLeftDown(position));
 	}
 	
 	public IElement createCornerRightUp(IPosition position) {
-		return new CornerRightUp(position);
+		return new IsUnPenetrable(new CornerRightUp(position));
 	}
 	
 	public IElement createCornerRightDown(IPosition position) {
-		return new CornerRightDown(position);
+		return new IsUnPenetrable(new CornerRightDown(position));
 	}
 	
 	

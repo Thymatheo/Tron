@@ -5,15 +5,17 @@ import contract.IMap;
 import contract.IMobileElementFactory;
 import contract.IPosition;
 import model.element.Position;
+import model.element.dpdecorator.IsAlive;
+import model.element.dpdecorator.IsUnPenetrable;
 
 public class MobileElementFactory implements IMobileElementFactory{
 
 	public IElement createPlayer(IPosition position) {
-		return new Player(position);
+		return new IsUnPenetrable(new IsAlive( new Player(position))) ;
 	}
 	
 	public IElement createEnemy(IPosition position) {
-		return new Enemy(position);
+		return new IsUnPenetrable(new IsAlive( new Enemy(position))) ;
 	}
 	@Override
 	public IElement createMobile(int nbMobile) {

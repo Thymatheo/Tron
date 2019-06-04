@@ -4,28 +4,51 @@ import contract.IElement;
 import contract.IPosition;
 import contract.ISprite;
 
-public abstract class Element implements IElement{
-	private ISprite sprite;
-	private IPosition position;
+public abstract class Element extends GameObject implements IElement{
+
+	protected boolean ALive = false;
 	
-	public Element(ISprite sprite,IPosition position) {
-		this.setSprite(sprite);
-		this.setPosition(position);
+	protected boolean unPenetrable = false;
+	
+	
+	
+	public Element(Element element) {
+		super(element.getSprite(), element.getPosition());
+		this.setALive(element.isALive());
+		this.setUnPenetrable(element.isUnPenetrable());
+		
+		
 	}
 
-	public ISprite getSprite() {
-		return sprite;
+
+
+	public Element(ISprite sprite, IPosition position) {
+		super(sprite, position);
 	}
 
-	public void setSprite(ISprite sprite) {
-		this.sprite = sprite;
+
+
+	public boolean isUnPenetrable() {
+		return unPenetrable;
 	}
 
-	public IPosition getPosition() {
-		return position;
+
+
+	public void setUnPenetrable(boolean unPenetrable) {
+		this.unPenetrable = unPenetrable;
 	}
 
-	public void setPosition(IPosition position) {
-		this.position = position;
+
+
+	public boolean isALive() {
+		return ALive;
 	}
+
+
+
+	public void setALive(boolean aLive) {
+		ALive = aLive;
+	}
+
+
 }
