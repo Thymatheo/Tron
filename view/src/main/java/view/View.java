@@ -19,7 +19,6 @@ public final class View implements IView, Runnable {
 	/** The frame. */
 	private final ViewFrame viewFrame;
 
-	private static IController controller;
 	/**
 	 * Instantiates a new view.
 	 *
@@ -87,6 +86,5 @@ public final class View implements IView, Runnable {
 	 */
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
-		View.controller = controller;
 	}
 }

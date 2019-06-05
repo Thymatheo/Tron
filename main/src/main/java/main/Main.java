@@ -4,7 +4,6 @@
  */
 package main;
 
-import contract.ControllerOrder;
 import controller.Controller;
 import model.Model;
 import view.View;
@@ -31,7 +30,6 @@ public abstract class Main {
         try {
 			controller.play();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         controller.end();

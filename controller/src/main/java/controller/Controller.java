@@ -1,7 +1,5 @@
 package controller;
 
-import javax.swing.plaf.SliderUI;
-
 import contract.ControllerOrder;
 import contract.IController;
 import contract.IElement;
