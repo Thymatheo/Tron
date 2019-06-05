@@ -25,4 +25,6 @@ public interface IMap {
 	void refresh();
 	
 	Observable getObservable();
+	
+	void setOnThMapXY(IElement element, int x, int y);
 }

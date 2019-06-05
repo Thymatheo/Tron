@@ -12,7 +12,6 @@ public interface IController {
 	 */
 	public void control();
 	
-	void setOrder(ControllerOrder order);
 	/**
 	 * Order perform.
 	 *
@@ -21,4 +20,12 @@ public interface IController {
 	 * @throws InterruptedException 
 	 */
 	public void play() throws InterruptedException;
+	
+	ControllerOrder getOrderPlayer1();
+	
+	ControllerOrder getOrderPlayer2();
+	
+	void setOrderPlayer1(ControllerOrder orderPlayer1);
+	
+	void setOrderPlayer2(ControllerOrder orderPlayer2);
 }

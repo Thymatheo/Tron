@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import contract.ControllerOrder;
 import contract.IController;
+import contract.IInteractionPlayerMap;
 import contract.IModel;
 import contract.IOrderPerformer;
 import contract.IView;
@@ -18,17 +19,14 @@ public final class Controller implements IController {
 
 	/** The model. */
 	private IModel	model;
+	
+	private IInteractionPlayerMap interactionPlayerMap;
 
-	private ArrayList<ControllerOrder> Order;
+	private ControllerOrder OrderPlayer1;
+	
+	private ControllerOrder OrderPlayer2;
 
-	private int speed = 1000;
-	
-	private String LastDirectionPlayer1;
-	
-	private String LastDirectionPlayer2;
-	
-	
-	
+	int speed = 500;
 
 	/**
 	 * Instantiates a new controller.
@@ -52,7 +50,7 @@ public final class Controller implements IController {
 	 * @see contract.IController#control()
 	 */
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
+		this.view.printMessage("Appuyer sur les touches 'Z', 'Q', 'S' ou 'D', Pour deplacer le Joueur 1\n" + "Et Utiliser les fleche directionnel pour le Joueur 2.");
 	}
 
 	/**
@@ -89,82 +87,59 @@ public final class Controller implements IController {
 	 */
 	
 	public void play() throws InterruptedException{
-		while (this.model.getPlayer(1).isALive() == true && this.model.getPlayer(2).isALive() == true) {
+		while (this.model.getPlayer(0).isALive() == true && this.model.getPlayer(1).isALive() == true) {
 			Thread.sleep(speed);
-			for (ControllerOrder controllerOrder : Order) {
-				switch (controllerOrder) {
+				switch (getOrderPlayer1()) {
 				case RightPlayer1:
-					this.setLastDirectionPlayer1("x+1");
+					interactionPlayerMap.playerMove(1, 0, 0);
 					break;
 				case UpPlayer1:
-					this.setLastDirectionPlayer1("y-1");
+					interactionPlayerMap.playerMove(0, -1, 0);
 					break;
 				case DownPlayer1:
-					this.setLastDirectionPlayer1("y+1");
+					interactionPlayerMap.playerMove(0, 1, 0);
 					break;
 				case LeftPlayer1:
-					this.setLastDirectionPlayer1("x-1");
-					break;
-				case RightPlayer2:
-					this.setLastDirectionPlayer1("x+1");
-					break;
-				case UpPlayer2:
-					this.setLastDirectionPlayer2("y-1");
-					break;
-				case DownPlayer2:
-					this.setLastDirectionPlayer2("y+1");
-					break;
-				case LeftPlayer2:
-					this.setLastDirectionPlayer2("x-1");
+					interactionPlayerMap.playerMove(-1, 0, 0);
 					break;
 				default:
-					if (LastDirectionPlayer1 == "y-1" || LastDirectionPlayer2 == "y-1" ) {
-						//do move up
-					} else if (LastDirectionPlayer1 == "y+1" || LastDirectionPlayer2 == "y+1" ) {
-						//do move Down
-					} else if (LastDirectionPlayer1 == "x+1" || LastDirectionPlayer2 == "x+1" ) {
-						//do move Right
-					} else if (LastDirectionPlayer1 == "x-1" || LastDirectionPlayer2 == "x-1" ) {
-						//do move Left
-					}
 					break;
 
 				}
+			switch(getOrderPlayer2()) {
+			case RightPlayer2:
+				interactionPlayerMap.playerMove(1, 0, 1);
+				break;
+			case UpPlayer2:
+				interactionPlayerMap.playerMove(0, -1, 1);
+				break;
+			case DownPlayer2:
+				interactionPlayerMap.playerMove(0, 1, 1);
+				break;
+			case LeftPlayer2:
+				interactionPlayerMap.playerMove(-1, 0, 1);
+				break;
+			default:
+				break;
 			}
-			this.clearOrder();
 			this.model.getMap().refresh();
 		}
 	}
 
-	public void clearOrder() {
-		for (ControllerOrder controllerOrder : Order) {
-			Order.remove(controllerOrder);
-		}
-
+	public ControllerOrder getOrderPlayer1() {
+		return OrderPlayer1;
 	}
 
-	public ArrayList<ControllerOrder> getOrder() {
-		return Order;
+	public void setOrderPlayer1(ControllerOrder orderPlayer1) {
+		OrderPlayer1 = orderPlayer1;
 	}
 
-	public void setOrder(ControllerOrder order) {
-		this.Order.add(order);
+	public ControllerOrder getOrderPlayer2() {
+		return OrderPlayer2;
 	}
 
-	public String getLastDirectionPlayer1() {
-		return LastDirectionPlayer1;
-	}
-
-	public void setLastDirectionPlayer1(String lastDirectionPlayer1) {
-		LastDirectionPlayer1 = lastDirectionPlayer1;
-	}
-
-	public String getLastDirectionPlayer2() {
-		return LastDirectionPlayer2;
-	}
-
-	public void setLastDirectionPlayer2(String lastDirectionPlayer2) {
-		LastDirectionPlayer2 = lastDirectionPlayer2;
+	public void setOrderPlayer2(ControllerOrder orderPlayer2) {
+		OrderPlayer2 = orderPlayer2;
 	}
 
 }

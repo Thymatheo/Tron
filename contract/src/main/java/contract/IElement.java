@@ -8,4 +8,8 @@ public interface IElement {
 	boolean isALive();
 	
 	boolean isUnPenetrable();
+	
+	void setUnPenetrable();
+	
+	void setALive();
 }

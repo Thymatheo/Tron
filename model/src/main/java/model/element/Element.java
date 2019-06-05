@@ -35,7 +35,7 @@ public abstract class Element extends GameObject implements IElement{
 
 
 	public void setUnPenetrable(boolean unPenetrable) {
-		this.unPenetrable = unPenetrable;
+		this.unPenetrable = false;
 	}
 
 
@@ -47,7 +47,7 @@ public abstract class Element extends GameObject implements IElement{
 
 
 	public void setALive(boolean aLive) {
-		ALive = aLive;
+		this.ALive = false;
 	}
 
 

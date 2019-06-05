@@ -11,4 +11,5 @@ public interface IModel {
 	IMap getMap();
 	IElement getPlayer(int x);
 	ArrayList<IElement> getPlayerList();
+	
 }
