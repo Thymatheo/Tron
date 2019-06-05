@@ -14,9 +14,6 @@ public class MobileElementFactory implements IMobileElementFactory{
 		return new IsUnPenetrable(new IsAlive( new Player(position))) ;
 	}
 
-	public IElement createEnemy(IPosition position) {
-		return new IsUnPenetrable(new IsAlive( new Enemy(position))) ;
-	}
 	@Override
 	public IElement createMobile(int nbMobile) {
 		if ( nbMobile == 0 ) {

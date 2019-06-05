@@ -22,6 +22,13 @@ public final class Controller implements IController {
 	private ArrayList<ControllerOrder> Order;
 
 	private int speed = 1000;
+	
+	private String LastDirectionPlayer1;
+	
+	private String LastDirectionPlayer2;
+	
+	
+	
 
 	/**
 	 * Instantiates a new controller.
@@ -74,37 +81,57 @@ public final class Controller implements IController {
 	 * @param controllerOrder
 	 *            the controller order
 	 */
+	
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
+	
 	public void play() throws InterruptedException{
-		while (this.model.getPlayer(1).isALive() == true && this.model.getPlayer(1).isALive() == true) {
+		while (this.model.getPlayer(1).isALive() == true && this.model.getPlayer(2).isALive() == true) {
 			Thread.sleep(speed);
 			for (ControllerOrder controllerOrder : Order) {
 				switch (controllerOrder) {
 				case RightPlayer1:
+					this.setLastDirectionPlayer1("x+1");
 					break;
 				case UpPlayer1:
+					this.setLastDirectionPlayer1("y-1");
 					break;
 				case DownPlayer1:
+					this.setLastDirectionPlayer1("y+1");
 					break;
 				case LeftPlayer1:
+					this.setLastDirectionPlayer1("x-1");
 					break;
 				case RightPlayer2:
+					this.setLastDirectionPlayer1("x+1");
 					break;
 				case UpPlayer2:
+					this.setLastDirectionPlayer2("y-1");
 					break;
 				case DownPlayer2:
+					this.setLastDirectionPlayer2("y+1");
 					break;
 				case LeftPlayer2:
+					this.setLastDirectionPlayer2("x-1");
 					break;
 				default:
+					if (LastDirectionPlayer1 == "y-1" || LastDirectionPlayer2 == "y-1" ) {
+						//do move up
+					} else if (LastDirectionPlayer1 == "y+1" || LastDirectionPlayer2 == "y+1" ) {
+						//do move Down
+					} else if (LastDirectionPlayer1 == "x+1" || LastDirectionPlayer2 == "x+1" ) {
+						//do move Right
+					} else if (LastDirectionPlayer1 == "x-1" || LastDirectionPlayer2 == "x-1" ) {
+						//do move Left
+					}
 					break;
 
 				}
 			}
+			this.clearOrder();
 			this.model.getMap().refresh();
 		}
 	}
@@ -122,6 +149,22 @@ public final class Controller implements IController {
 
 	public void setOrder(ControllerOrder order) {
 		this.Order.add(order);
+	}
+
+	public String getLastDirectionPlayer1() {
+		return LastDirectionPlayer1;
+	}
+
+	public void setLastDirectionPlayer1(String lastDirectionPlayer1) {
+		LastDirectionPlayer1 = lastDirectionPlayer1;
+	}
+
+	public String getLastDirectionPlayer2() {
+		return LastDirectionPlayer2;
+	}
+
+	public void setLastDirectionPlayer2(String lastDirectionPlayer2) {
+		LastDirectionPlayer2 = lastDirectionPlayer2;
 	}
 
 }
