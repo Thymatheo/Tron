@@ -1,8 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+
 import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
+import contract.IOrderPerformer;
 import contract.IView;
 
 /**
@@ -15,6 +18,10 @@ public final class Controller implements IController {
 
 	/** The model. */
 	private IModel	model;
+
+	private ArrayList<ControllerOrder> Order;
+
+	private int speed = 1000;
 
 	/**
 	 * Instantiates a new controller.
@@ -30,8 +37,8 @@ public final class Controller implements IController {
 	}
 
 	/**
-     * Control.
-     */
+	 * Control.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -42,11 +49,11 @@ public final class Controller implements IController {
 	}
 
 	/**
-     * Sets the view.
-     *
-     * @param pview
-     *            the new view
-     */
+	 * Sets the view.
+	 *
+	 * @param pview
+	 *            the new view
+	 */
 	private void setView(final IView pview) {
 		this.view = pview;
 	}
@@ -62,29 +69,59 @@ public final class Controller implements IController {
 	}
 
 	/**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
-     */
+	 * Order perform.
+	 *
+	 * @param controllerOrder
+	 *            the controller order
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				break;
-			case Francais:
-				break;
-			case Deutsch:
-				break;
-			case Indonesia:
-				break;
-			default:
-				break;
+	public void play() throws InterruptedException{
+		while (this.model.getPlayer(1).isALive() == true && this.model.getPlayer(1).isALive() == true) {
+			Thread.sleep(speed);
+			for (ControllerOrder controllerOrder : Order) {
+				switch (controllerOrder) {
+				case RightPlayer1:
+					break;
+				case UpPlayer1:
+					break;
+				case DownPlayer1:
+					break;
+				case LeftPlayer1:
+					break;
+				case RightPlayer2:
+					break;
+				case UpPlayer2:
+					break;
+				case DownPlayer2:
+					break;
+				case LeftPlayer2:
+					break;
+				default:
+					break;
+
+				}
+			}
+			this.model.getMap().refresh();
 		}
+	}
+
+	public void clearOrder() {
+		for (ControllerOrder controllerOrder : Order) {
+			Order.remove(controllerOrder);
+		}
+
+	}
+
+	public ArrayList<ControllerOrder> getOrder() {
+		return Order;
+	}
+
+	public void setOrder(ControllerOrder order) {
+		this.Order.add(order);
 	}
 
 }

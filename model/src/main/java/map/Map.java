@@ -24,7 +24,7 @@ public class Map extends Observable implements IMap {
 		IMobileElementFactory mobileElementFactory = new MobileElementFactory();
 		ArrayList<IElement> mobile = new ArrayList<IElement>();
 		for (int  m = 0 ; m < nbMobile ; m++ ) {
-			mobile.add(mobileElementFactory.createMobile(m));
+			mobile.add(m, mobileElementFactory.createMobile(m));
 		}
 		for ( int x = 0; x < mobile.size(); x++) {
 			this.setOnThMapXY(mobile.get(x), mobile.get(x).getPosition().getX(), mobile.get(x).getPosition().getX());

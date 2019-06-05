@@ -1,5 +1,7 @@
 package contract;
 
+import java.util.Observable;
+
 public interface IMap {
 	
 	int heightMap 	= 40;
@@ -8,11 +10,19 @@ public interface IMap {
 	
 	int nbMobile	= 2;
 	
-	int StartX 		= 5;
+	int StartXPlayer1 		= 5;
 	
-	int StartY		= 5;
+	int StartYPlayer1		= 5;
+	
+	int StartXPlayer2 		= 35;
+	
+	int StartYPlayer2		= 35;
 	
 	int DecalageEnemy = 10;
 	
 	IElement getOnTheMapXY(int x, int y);
+	
+	void refresh();
+	
+	Observable getObservable();
 }

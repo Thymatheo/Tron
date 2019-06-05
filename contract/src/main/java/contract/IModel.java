@@ -1,5 +1,7 @@
 package contract;
 
+import java.util.ArrayList;
+
 /**
  * The Interface IModel.
  *
@@ -7,4 +9,6 @@ package contract;
  */
 public interface IModel {
 	IMap getMap();
+	IElement getPlayer(int x);
+	ArrayList<IElement> getPlayerList();
 }

@@ -29,7 +29,7 @@ class ViewPanel extends JPanel implements Observer {
 	 */
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
-		//viewFrame.getModel().getObservable().addObserver(this);
+		viewFrame.getModel().getMap().getObservable().addObserver(this);
 	}
 
 	/**
@@ -69,7 +69,6 @@ class ViewPanel extends JPanel implements Observer {
 	protected void paintComponent(final Graphics graphics) {
 		IModel model = this.getViewFrame().getModel();
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		//graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
 		for ( int x  = 0 ; x < IMap.heightMap ; x++ ) {
 			for ( int y = 0 ; y < IMap.widthMap ; y ++) {
 				if ( model.getMap().getOnTheMapXY(x, y) != null ) {
@@ -77,9 +76,12 @@ class ViewPanel extends JPanel implements Observer {
 				} else {
 					System.out.print("  ");
 				}
-				
 			}
 			System.out.println("");
+		}
+		
+		for (int x = 0 ; x < model.getPlayerList().size(); x++) {
+			System.out.println("Player " + model.getPlayer(x).getPosition().getX() + "x/" + model.getPlayer(x).getPosition().getX() + "y" );
 		}
 	}
 }
