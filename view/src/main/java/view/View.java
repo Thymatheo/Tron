@@ -19,6 +19,7 @@ public final class View implements IView, Runnable {
 	/** The frame. */
 	private final ViewFrame viewFrame;
 
+	private static IController controller;
 	/**
 	 * Instantiates a new view.
 	 *
@@ -47,13 +48,13 @@ public final class View implements IView, Runnable {
 				return ControllerOrder.LeftPlayer1;
 			case KeyEvent.VK_D:
 				return ControllerOrder.RightPlayer1;
-			case KeyEvent.VK_KP_UP:
+			case KeyEvent.VK_UP:
 				return ControllerOrder.UpPlayer2;
-			case KeyEvent.VK_KP_DOWN:
+			case KeyEvent.VK_DOWN:
 				return ControllerOrder.DownPlayer2;
-			case KeyEvent.VK_KP_LEFT:
+			case KeyEvent.VK_LEFT:
 				return ControllerOrder.LeftPlayer2;
-			case KeyEvent.VK_KP_RIGHT:
+			case KeyEvent.VK_RIGHT:
 				return ControllerOrder.RightPlayer2;
 			default:
 				return ControllerOrder.Nothing;
@@ -86,5 +87,6 @@ public final class View implements IView, Runnable {
 	 */
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
+		View.controller = controller;
 	}
 }

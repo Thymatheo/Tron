@@ -13,20 +13,24 @@ public class InteractionPlayerMap implements IInteractionPlayerMap{
 		this.model = model;
 	}
 
-	public void playerMove(int x, int y, int player) {
-		if ( analyse(model.getPlayer(player).getPosition().getX()+x, model.getPlayer(player).getPosition().getY()+y, player) == true) {
-			IPosition playerPosition = model.getPlayer(player).getPosition();
+	public void playerMove(int x, int y, IElement player) {
+		if ( analyse(player.getPosition().getX()+x, player.getPosition().getY()+y, player) == true) {
+			IPosition playerPosition = player.getPosition();
 			playerPosition.setX(playerPosition.getX()+x);
 			playerPosition.setY(playerPosition.getY()+y);
-			model.getMap().setOnThMapXY(model.getPlayer(player), playerPosition.getX(), playerPosition.getY());
+			model.getMap().setOnThMapXY(player, playerPosition.getX(), playerPosition.getY());
+			model.getMap().setOnThMapXY(null, playerPosition.getX()-x, playerPosition.getY()-y);
+
 		}
-		
+
 	}
-	
-	private boolean analyse(int x , int y,int player) {
+
+	private boolean analyse(int x , int y,IElement player) {
+		if (model.getMap().getOnTheMapXY(x, y) != null ) {
 			if (model.getMap().getOnTheMapXY(x, y).isUnPenetrable() == true) {
-				model.getPlayer(player).setALive();
+				player.setALive(false);
 			}
+		}
 		return true;
 	}
 }

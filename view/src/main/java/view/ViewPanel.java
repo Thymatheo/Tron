@@ -79,9 +79,8 @@ class ViewPanel extends JPanel implements Observer {
 			}
 			System.out.println("");
 		}
-		
 		for (int x = 0 ; x < model.getPlayerList().size(); x++) {
-			System.out.println("Player " + model.getPlayer(x).getPosition().getX() + "x/" + model.getPlayer(x).getPosition().getX() + "y" );
+			System.out.println("Player "+ (x+1)+" : " + model.getPlayer(x).getPosition().getX() + "x/" + model.getPlayer(x).getPosition().getX() + "y" );
 		}
 	}
 }

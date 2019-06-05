@@ -28,4 +28,6 @@ public interface IController {
 	void setOrderPlayer1(ControllerOrder orderPlayer1);
 	
 	void setOrderPlayer2(ControllerOrder orderPlayer2);
+	
+	IController getController();
 }

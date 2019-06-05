@@ -6,7 +6,7 @@ public class IsUnPenetrable extends Decorator{
 
 	public IsUnPenetrable(Element object) {
 		super(object);
-		unPenetrable = false;
+		unPenetrable = true;
 	}
 
 }

@@ -9,7 +9,7 @@ public interface IElement {
 	
 	boolean isUnPenetrable();
 	
-	void setUnPenetrable();
+	void setUnPenetrable(boolean unPenetrable);
 	
-	void setALive();
+	void setALive(boolean aLive);
 }

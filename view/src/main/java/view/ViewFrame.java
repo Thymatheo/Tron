@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 
@@ -86,7 +87,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *
 	 * @return the controller
 	 */
-	private IController getController() {
+	public IController getController() {
 		return this.controller;
 	}
 
@@ -160,8 +161,37 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	public void keyPressed(final KeyEvent e) {
-		this.getController().setOrder(View.keyCodeToControllerOrder(e.getKeyCode()));
+		ControllerOrder control = View.keyCodeToControllerOrder(e.getKeyCode());
+		switch(control) {
+		case RightPlayer1 :
+			this.getController().setOrderPlayer1(control);
+			break;
+		case RightPlayer2 :
+			this.getController().setOrderPlayer2(control);
+			break;
+		case LeftPlayer1 :
+			this.getController().setOrderPlayer1(control);
+			break;
+		case LeftPlayer2 :
+			this.getController().setOrderPlayer2(control);
+			break;
+		case UpPlayer1 :
+			this.getController().setOrderPlayer1(control);
+			break;
+		case UpPlayer2 :
+			this.getController().setOrderPlayer2(control);
+			break;
+		case DownPlayer1 :
+			this.getController().setOrderPlayer1(control);
+			break;
+		case DownPlayer2 :
+			this.getController().setOrderPlayer2(control);
+			break;
+		default:
+			break;
+		}
 	}
+
 
 	/*
 	 * (non-Javadoc)

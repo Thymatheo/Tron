@@ -8,8 +8,12 @@ import java.util.ArrayList;
  * @author Jean-Aymeric Diet
  */
 public interface IModel {
+	
 	IMap getMap();
+	
 	IElement getPlayer(int x);
+	
 	ArrayList<IElement> getPlayerList();
 	
+	IInteractionPlayerMap getInteractionPlayerMap();
 }
