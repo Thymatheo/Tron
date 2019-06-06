@@ -132,7 +132,7 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
+		this.setSize(1005+ this.getInsets().left + this.getInsets().right, 1035 + this.getInsets().top + this.getInsets().bottom);
 		this.setLocationRelativeTo(null);
 	}
 
@@ -186,7 +186,6 @@ class ViewFrame extends JFrame implements KeyListener {
 			break;
 		case DownPlayer2 :
 			this.getController().setOrderPlayer2(control);
-			break;
 		default:
 			break;
 		}

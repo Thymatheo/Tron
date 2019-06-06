@@ -1,9 +1,12 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import contract.IMap;
@@ -21,6 +24,8 @@ class ViewPanel extends JPanel implements Observer {
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -998294702363713521L;
 
+	private Image image;
+
 	/**
 	 * Instantiates a new view panel.
 	 *
@@ -30,6 +35,12 @@ class ViewPanel extends JPanel implements Observer {
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getMap().getObservable().addObserver(this);
+		try {
+			this.image = ImageIO.read(getClass().getResource("/"+"Ground.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -72,9 +83,11 @@ class ViewPanel extends JPanel implements Observer {
 		for ( int x  = 0 ; x < IMap.heightMap ; x++ ) {
 			for ( int y = 0 ; y < IMap.widthMap ; y ++) {
 				if ( model.getMap().getOnTheMapXY(x, y) != null ) {
+					graphics.drawImage(model.getMap().getOnTheMapXY(x, y).getSprite().getImage(), y*IMap.renderImage, x*IMap.renderImage, IMap.renderImage, IMap.renderImage, this);
 					System.out.print(model.getMap().getOnTheMapXY(x, y).getSprite().getConsoleImage()+ " ");
-				} else {
+				} else if ( model.getMap().getOnTheMapXY(x, y) == null ) {
 					System.out.print("  ");
+					graphics.drawImage(this.image, y*IMap.renderImage, x*IMap.renderImage, IMap.renderImage, IMap.renderImage, this);
 				}
 			}
 			System.out.println("");

@@ -4,7 +4,7 @@ import contract.IPosition;
 import model.element.Sprite;
 
 public class BorderDown extends StaticElement{
-	private static Sprite SPRITE = new Sprite("-");
+	private static Sprite SPRITE = new Sprite("-", "BorderDown.png");
 	public BorderDown(IPosition position) {
 		super(SPRITE, position);
 	}

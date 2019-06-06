@@ -30,4 +30,6 @@ public interface IController {
 	void setOrderPlayer2(ControllerOrder orderPlayer2);
 	
 	IController getController();
+	
+	 boolean tryAgain();
 }

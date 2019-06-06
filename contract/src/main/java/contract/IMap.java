@@ -10,6 +10,8 @@ public interface IMap {
 	
 	int nbMobile	= 2;
 	
+	int renderImage = 25;
+	
 	int StartXPlayer1 		= 5;
 	
 	int StartYPlayer1		= 5;

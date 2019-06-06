@@ -7,7 +7,6 @@ package contract;
  */
 public enum ControllerOrder {
 
-	
 	Nothing, 
 	
 	RightPlayer1, 
@@ -24,6 +23,25 @@ public enum ControllerOrder {
 	
 	DownPlayer2, 
 	
-	LeftPlayer2
+	LeftPlayer2,
 	
+	RightPlayer3, 
+	
+	UpPlayer3, 
+	
+	DownPlayer3, 
+	
+	LeftPlayer3,
+	
+	RightPlayer4, 
+	
+	UpPlayer4, 
+	
+	DownPlayer4, 
+	
+	LeftPlayer4,
+	
+	Exit,
+	
+	Continue
 }

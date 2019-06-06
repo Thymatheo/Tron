@@ -10,16 +10,20 @@ import model.element.dpdecorator.IsUnPenetrable;
 
 public class MobileElementFactory implements IMobileElementFactory{
 
-	public IElement createPlayer(IPosition position) {
-		return new IsUnPenetrable(new IsAlive( new Player(position))) ;
+	public IElement createPlayer1(IPosition position) {
+		return new IsUnPenetrable(new IsAlive( new Player1(position))) ;
+	}
+	
+	public IElement createPlayer2(IPosition position) {
+		return new IsUnPenetrable(new IsAlive( new Player2(position))) ;
 	}
 
 	@Override
 	public IElement createMobile(int nbMobile) {
 		if ( nbMobile == 0 ) {
-			return createPlayer(new Position(IMap.StartXPlayer1, IMap.StartYPlayer1));
+			return createPlayer1(new Position(IMap.StartXPlayer1, IMap.StartYPlayer1));
 		} else if ( nbMobile == 1){
-			return createPlayer(new Position(IMap.StartXPlayer2, IMap.StartYPlayer2));
+			return createPlayer2(new Position(IMap.StartXPlayer2, IMap.StartYPlayer2));
 		}
 		return null;
 	}
