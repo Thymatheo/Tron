@@ -7,15 +7,10 @@ import contract.IInteractionPlayerMap;
 import contract.IModel;
 import contract.IView;
 
-/**
- * The Class Controller.
- */
 public final class Controller implements IController {
 
-	/** The view. */
 	private IView		view;
 
-	/** The model. */
 	private IModel	model;
 
 	private ControllerOrder orderPlayer1 = ControllerOrder.DownPlayer1;
@@ -26,27 +21,11 @@ public final class Controller implements IController {
 
 	int speed = 150;
 
-	/**
-	 * Instantiates a new controller.
-	 *
-	 * @param view
-	 *          the view
-	 * @param model
-	 *          the model
-	 */
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
 	}
 
-	/**
-	 * Control.
-	 */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#control()
-	 */
 	public void control() {
 		this.view.printMessage("Appuyer sur les touches 'Z', 'Q', 'S' ou 'D', Pour deplacer le Joueur 1\n" + "Et Utiliser les fleche directionnel pour le Joueur 2.");
 	}
@@ -60,38 +39,13 @@ public final class Controller implements IController {
 
 	}
 
-	/**
-	 * Sets the view.
-	 *
-	 * @param pview
-	 *            the new view
-	 */
 	private void setView(final IView pview) {
 		this.view = pview;
 	}
 
-	/**
-	 * Sets the model.
-	 *
-	 * @param model
-	 *          the new model
-	 */
 	private void setModel(final IModel model) {
 		this.model = model;
 	}
-
-	/**
-	 * Order perform.
-	 *
-	 * @param controllerOrder
-	 *            the controller order
-	 */
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#orderPerform(contract.ControllerOrder)
-	 */
 
 	public void play() throws InterruptedException{
 		IInteractionPlayerMap Interact = this.model.getInteractionPlayerMap();
