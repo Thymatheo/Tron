@@ -1,85 +1,73 @@
 package model;
 
-import java.sql.SQLException;
-import java.util.Observable;
+import java.util.ArrayList;
 
+import contract.IElement;
+import contract.IInteractionPlayerMap;
+import contract.IMap;
 import contract.IModel;
-import entity.HelloWorld;
+import map.Map;
+import model.element.interactionMap.InteractionPlayerMap;
 
-/**
- * The Class Model.
- *
- * @author Jean-Aymeric Diet
- */
-public final class Model extends Observable implements IModel {
+public final class Model implements IModel {
 
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	private Map map;
 
-	/**
-	 * Instantiates a new model.
-	 */
+	private ArrayList<IElement> playerList;
+
+	private InteractionPlayerMap interactionPlayerMap;
+
 	public Model() {
-		this.helloWorld = new HelloWorld();
+		this.setMap(new Map(IMap.heightMap, IMap.widthMap));
+		this.setPlayerList(new ArrayList<IElement>());
+		this.findMobile();
+		this.setInteractionPlayerMap(new InteractionPlayerMap(this));
+
 	}
 
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
+	public Map getMap() {
+		return map;
 	}
 
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
+	public void setMap(Map map) {
+		this.map = map;
 	}
 
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
+	public void findMobile() {
+		int nb = 1;
+		for( int x = 0 ; x < IMap.heightMap ; x++) {
+			for ( int y = 0 ; y < IMap.widthMap ; y++) {
+				if (this.getMap().getOnTheMapXY(x, y) != null) {
+					if (this.getMap().getOnTheMapXY(x, y).isALive() == true) {
+						if (this.getMap().getOnTheMapXY(x, y).getSprite().getConsoleImage() == "p1" || this.getMap().getOnTheMapXY(x, y).getSprite().getConsoleImage() == "p2") {
+							System.out.println("player " + nb +" found !!!");
+							nb++;
+							this.playerList.add(this.getMap().getOnTheMapXY(x, y));
+						}
+					}	
+				}	
+			}
 		}
 	}
 
-	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
-	public Observable getObservable() {
-		return this;
+
+	public ArrayList<IElement> getPlayerList(){
+		return this.playerList;
+	}
+
+	public IElement getPlayer(int x) {
+		return this.getPlayerList().get(x);
+	}
+
+	public void setPlayerList(ArrayList<IElement> playerList) {
+		this.playerList = playerList;
+	}
+
+	public IInteractionPlayerMap getInteractionPlayerMap() {
+		return interactionPlayerMap;
+	}
+
+	public void setInteractionPlayerMap(InteractionPlayerMap interactionPlayerMap) {
+		this.interactionPlayerMap = interactionPlayerMap;
 	}
 }

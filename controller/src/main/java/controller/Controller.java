@@ -2,93 +2,133 @@ package controller;
 
 import contract.ControllerOrder;
 import contract.IController;
+import contract.IElement;
+import contract.IInteractionPlayerMap;
 import contract.IModel;
 import contract.IView;
 
-/**
- * The Class Controller.
- */
 public final class Controller implements IController {
 
-	/** The view. */
 	private IView		view;
 
-	/** The model. */
 	private IModel	model;
 
-	/**
-	 * Instantiates a new controller.
-	 *
-	 * @param view
-	 *          the view
-	 * @param model
-	 *          the model
-	 */
+	private ControllerOrder orderPlayer1 = ControllerOrder.DownPlayer1;
+
+	private ControllerOrder orderPlayer2 = ControllerOrder.UpPlayer2;
+	
+	private ControllerOrder orderTryAgain = null;
+
+	int speed = 150;
+
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
 	}
 
-	/**
-     * Control.
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#control()
-	 */
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
+		this.view.printMessage("Appuyer sur les touches 'Z', 'Q', 'S' ou 'D', Pour deplacer le Joueur 1\n" + "Et Utiliser les fleche directionnel pour le Joueur 2.");
 	}
 
-	/**
-     * Sets the view.
-     *
-     * @param pview
-     *            the new view
-     */
+	public void end() {
+		if ( this.model.getPlayer(0).isALive() == true) {
+			this.view.printMessage("Player Blue Win");
+		} else if ( this.model.getPlayer(1).isALive() == true) {
+			this.view.printMessage("Player Orange Win");
+		}
+
+	}
+
 	private void setView(final IView pview) {
 		this.view = pview;
 	}
 
-	/**
-	 * Sets the model.
-	 *
-	 * @param model
-	 *          the new model
-	 */
 	private void setModel(final IModel model) {
 		this.model = model;
 	}
 
-	/**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#orderPerform(contract.ControllerOrder)
-	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				this.model.loadHelloWorld("GB");
-				break;
-			case Francais:
-				this.model.loadHelloWorld("FR");
-				break;
-			case Deutsch:
-				this.model.loadHelloWorld("DE");
-				break;
-			case Indonesia:
-				this.model.loadHelloWorld("ID");
-				break;
-			default:
-				break;
+	public void play() throws InterruptedException{
+		IInteractionPlayerMap Interact = this.model.getInteractionPlayerMap();
+		IElement player1 = this.model.getPlayer(0);
+		IElement player2 = this.model.getPlayer(1);
+		int t = 0;
+		while (player1.isALive() == true && player2.isALive() == true) {
+			Thread.sleep(speed);
+			System.out.println("Tour de boucle n°" + t);
+				switch (getOrderPlayer1()) {
+				case RightPlayer1:
+					Interact.playerMove(0, 1, 0);
+					break;
+				case UpPlayer1:
+					Interact.playerMove(-1, 0, 0);
+					break;
+				case DownPlayer1:
+					Interact.playerMove(1, 0, 0);
+					break;
+				case LeftPlayer1:
+					Interact.playerMove(0, -1, 0);
+					break;
+				default:
+					break;
+				}
+				switch(getOrderPlayer2()) {
+				case RightPlayer2:
+					Interact.playerMove(0, 1, 1);
+					break;
+				case UpPlayer2:
+					Interact.playerMove(-1, 0, 1);
+					break;
+				case DownPlayer2:
+					Interact.playerMove(1, 0, 1);
+					break;
+				case LeftPlayer2:
+					Interact.playerMove(0,-1, 1);
+					break;
+				default:
+					break;
+				}
+			t++; 
+			if (t == 100) {
+				
+			}
+			this.model.getMap().refresh();
+			if ( player1.isALive() == false) {
+				player1.getSprite().setImageName("PlayerDeath.png");
+				player1.getSprite().loadImage(player1.getSprite().getImageName());
+			} else if ( player2.isALive() == false) {
+				player2.getSprite().setImageName("PlayerDeath.png");
+				player2.getSprite().loadImage(player2.getSprite().getImageName());			}
+		}
+	}
+	
+	public boolean tryAgain() {
+		switch(orderTryAgain) {
+		case Exit:
+			return false;
+		case Continue:
+			return true;
+		default :
+			return false;
 		}
 	}
 
+	public ControllerOrder getOrderPlayer1() {
+		return orderPlayer1;
+	}
+
+	public void setOrderPlayer1(ControllerOrder orderPlayer1) {
+		this.orderPlayer1 = orderPlayer1;
+	}
+
+	public ControllerOrder getOrderPlayer2() {
+		return orderPlayer2;
+	}
+
+	public void setOrderPlayer2(ControllerOrder orderPlayer2) {
+		this.orderPlayer2 = orderPlayer2;
+	}
+
+	public IController getController() {
+		return this;
+	}
 }
